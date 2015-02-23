@@ -8,6 +8,18 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from myApp.models import Category, Page
 
+# def encoding(category_name_url):
+#     category_name = category_name_url.replace('_', ' ')
+#     return category_name
+def encode_url(str):
+    return str.replace(' ', '_')
+
+# def decoding(category_name):
+#     category_name_url = category_name.replace(' ', '_')
+#     return category_name_url
+def decode_url(str):
+    return str.replace('_', ' ')    
+
 # def index(request):
 #     return HttpResponse("myApp says hello world! <a href = '/myApp/about'>about</a>")
 #     # return HttpResponse("myApp says hello world! about <a ref = '/myApp/about'>about</a>") 
@@ -38,7 +50,8 @@ def index(request):
     # This attribute stores an encoded URL (e. g. spaces replaced with underscores).
     for category in category_list:
         # category_name_url =  category.name.replace(" ", "_")
-        category.url = category.name.replace(" ", "_")
+        # category.url = category.name.replace(" ", "_")
+        category.url = encode_url(category.name)
 
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
@@ -53,7 +66,9 @@ def category(request, category_name_url):
     # Change underscores in the category name to spaces.
     # URLs don't handle spaces well, so we encode them as underscores.
     # We can then simply replace the underscores with spaces again to get the name.
-    category_name = category_name_url.replace('_', ' ') 
+    # category_name = category_name_url.replace('_', ' ')
+    category_name = decode_url(category_name_url) 
+
 
     # Create a context dictionary which we can pass to the template rendering engine.
     # We start by containing the name of the category passed by the user.
