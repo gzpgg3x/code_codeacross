@@ -1,0 +1,43 @@
+<!DOCTYPE html!>
+
+{% load static %}
+
+<html>
+    <head>
+        <title> myApp </title>	
+    </head>
+
+    <body>
+    	<h1> myApp says: "Top 5 Categories" </h1>
+        {#<storng> {{ boldmessage }} </strong> <br >#}
+
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+
+                <li><a href = "/myApp/category/{{category.url}}">{{category.name}}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <storng> There is no category! </strong>
+        {% endif %}
+
+        <h1> myApp says: "Top 5 pages" </h1>
+
+        {% if pages %}
+
+            <ul>
+                {% for page in pages %}
+                    <li><a href = {{ page.url }}> {{page.title}} </a></li>
+                {% endfor %}    
+            </ul>
+
+        {% else %}
+            <strong> There are no pages. </strong>
+        {% endif %}            
+
+        <a href = "\myApp\about\"> About </a> <br >
+        <img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />
+    <body>	
+
+</html>
