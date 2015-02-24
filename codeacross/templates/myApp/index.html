@@ -1,4 +1,4 @@
-<!DOCTYPE html!>
+<!DOCTYPE html>
 
 {% load static %}
 
@@ -34,7 +34,13 @@
 
         {% else %}
             <strong> There are no pages. </strong>
-        {% endif %}            
+        {% endif %}
+
+        <br>
+
+        <a href = "/myApp/add_category/" > Add a New Category </a>  
+
+        <br>        
 
         <a href = "\myApp\about\"> About </a> <br >
         <img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />

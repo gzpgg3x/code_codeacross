@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from myApp.models import Category, Page
+from myApp.forms import CategoryForm
 
 # def encoding(category_name_url):
 #     category_name = category_name_url.replace('_', ' ')
@@ -101,10 +102,42 @@ def category(request, category_name_url):
     # Go render the response and return it to the client.
     return render_to_response('myApp/category.html', context_dict, context)
 
+def add_category(request):
+    # Get the context from the request.
+    context = RequestContext(request)
+
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new category to the database.
+            form.save(commit=True)
+
+            # Nwo call the index() view.
+            # The user will be shown the homepage.
+            return index(request)
+
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print form.errors
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = CategoryForm()
+
+    # Bad form (or form details), no form supplied    
+    # Render the form with error messages (if any).
+    # context_dict = 
+    return render_to_response('myApp/add_category.html', {'form': form}, context)
+
+
 # def about(request):
 # 	return HttpResponse("myApp says This is About Page. <a href = '/myApp/'> Home</a>")
 
 def about(request):
+    # get the context from the request
     context = RequestContext(request)
+
     context_dict = { "boldmessage": "How I make a master of python django" }
     return render_to_response('myApp/about.html', context_dict, context)
