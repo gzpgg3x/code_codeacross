@@ -26,4 +26,15 @@ class PageForm(forms.ModelForm):
         # This way we don't need every field in the model prosent.
         # Some fields may allow NULL values, so we may not want to include them...
         # Here, we are hiding the foreign key.
-        fields = ('title', 'url', 'views')                    
+        fields = ('title', 'url', 'views')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('rul')  
+
+        # if url is not empty and doesn't arart with 'http://', prepend 'http://'. 
+        if url and not url.startswith('http://'):
+            url = 'http://' + url
+            cleaned_data['url'] = url
+
+        return cleaned_data             
