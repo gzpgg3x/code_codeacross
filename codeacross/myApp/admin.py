@@ -13,7 +13,7 @@
 
 
 from django.contrib import admin
-from myApp.models import Category, Page#, UserProfile
+from myApp.models import Category, Page, UserProfile
 
 # def PageAdmin():
 # class PageAdmin(admin.models):
@@ -23,6 +23,7 @@ class PageAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 # admin.site.register(Page)
 admin.site.register(Page, PageAdmin)
+admin.site.register(UserProfile)
 
 
 
