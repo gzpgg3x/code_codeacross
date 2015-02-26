@@ -10,6 +10,7 @@ from myApp.models import Category, Page
 from myApp.forms import CategoryForm, PageForm
 from myApp.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # def encoding(category_name_url):
 #     category_name = category_name_url.replace('_', ' ')
@@ -286,3 +287,9 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('myApp/login.html', {}, context)
+
+@login_required
+# def restricted():
+def restricted(request):
+    # httpResponse("Since you are logged in, you are allowed to view this page.")
+    return HttpResponse("Since you are logged in, you are allowed to view this page.")

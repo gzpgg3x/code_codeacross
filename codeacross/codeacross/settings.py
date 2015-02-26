@@ -180,3 +180,6 @@ LOGGING = {
         },
     }
 }
+
+# LOGIN_URL = '/myApp/log_in/'
+LOGIN_URL = '/myApp/login/'

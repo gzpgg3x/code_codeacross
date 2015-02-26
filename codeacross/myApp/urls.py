@@ -14,6 +14,7 @@ urlpatterns = patterns('',
         url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),
         url(r'^register/$', views.register, name='register'),
         url(r'^login/$', views.user_login, name='user_login'),
+        url(r'^restricted/', views.restricted, name='restricted'),
         )  # New!
 
         # url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),)    
