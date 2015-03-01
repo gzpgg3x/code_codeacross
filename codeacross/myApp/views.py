@@ -11,6 +11,7 @@ from myApp.forms import CategoryForm, PageForm
 from myApp.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # def encoding(category_name_url):
 #     category_name = category_name_url.replace('_', ' ')
@@ -106,6 +107,7 @@ def category(request, category_name_url):
     # Go render the response and return it to the client.
     return render_to_response('myApp/category.html', context_dict, context)
 
+@login_required
 def add_category(request):
     # Get the context from the request.
     context = RequestContext(request)
@@ -135,6 +137,7 @@ def add_category(request):
     # context_dict = 
     return render_to_response('myApp/add_category.html', {'form': form}, context)
 
+@login_required
 # def add_page(request):
 def add_page(request, category_name_url):
     # context = ContextRequest(request)
@@ -293,3 +296,13 @@ def user_login(request):
 def restricted(request):
     # httpResponse("Since you are logged in, you are allowed to view this page.")
     return HttpResponse("Since you are logged in, you are allowed to view this page.")
+
+# Use the login_requried() decorator to ensure only those logged in can access the view.
+@login_required
+# def logout(request):
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/myApp/')

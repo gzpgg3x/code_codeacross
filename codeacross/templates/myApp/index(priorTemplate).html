@@ -1,11 +1,15 @@
-{% extends 'myApp/base.html' %}
+<!DOCTYPE html>
 
-{% block title %} Home {% endblock %}
+{% load static %}
 
-{% block block_body %}
+<html>
+    <head>
+        <title> myApp </title>	
+    </head>
 
-        <h1> myApp </h1>  
-
+    <body>
+        
+        {#{% if user.authenticated %}#}
         {% if user.is_authenticated %}
             {#<h1> Hello, {{ user.name }} ! </h1>#}    
             <h1> Hello, {{user.username}} ! </h1>
@@ -13,7 +17,7 @@
             <h1> Hello, world ! </h1> 
         {% endif %}
 
-        <h2> myApp says: "Top 5 Categories" </h2>
+    	<h2> myApp says: "Top 5 Categories" </h2>
         {#<storng> {{ boldmessage }} </strong> <br >#}
 
         {% if categories %}
@@ -43,4 +47,26 @@
 
         <br>
 
-{% endblock %}
+        <a href = "/myApp/add_category/" > Add a New Category </a>  
+
+        <br>        
+
+        
+        {% if user.is_authenticated %}
+            <a href = "\myApp\restricted\"> Restricted </a><br>        
+            <a href = "\myApp\logout\"> Logout </a><br>
+        {% else %}
+            <a href = "\myApp\register\"> Register </a><br>        
+            <a href = "\myApp\login\"> Login </a><br>
+        {% endif %}
+
+
+        
+
+
+        <a href = "\myApp\about\"> About </a> <br >
+
+        <img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />
+    </body>	
+
+</html>

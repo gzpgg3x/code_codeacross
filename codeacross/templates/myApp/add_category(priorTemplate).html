@@ -1,10 +1,14 @@
-{#{% extended 'myApp/base.html' %}#}
-{% extends 'myApp/base.html' %}
+<!DOCTYPE html>
 
-{% block title %} Add a new category {% endblock %}
+{#{% load static %}#}
 
-{% block block_body %}
+<html>
+    <head>
 
+        <title> myApp </title>
+    </head>
+
+    <body>
         <h1> Add a new category</h1>
 
         <form id="category_form" method="post" action="/myApp/add_category/">
@@ -20,10 +24,14 @@
                 {{ field }}
             {% endfor %}
 
+
+
             <input type="submit" name="submit" value="Create Category" /> 
 
         </form>
 
-{% endblock %}
+        <a href = "\myApp\about\"> About </a> <br >
+        {#<img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />#}
+    </body>	
 
-
+</html>

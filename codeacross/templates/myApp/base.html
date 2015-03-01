@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{#<% load static %>#}
+
+{% load static %}
+
+{% load static %}
+
+<html>
+    <head>
+
+        <title> myApp - {% block title %} How to Build Django Websites {% endblock %}</title>
+
+    </head>
+
+    <body>
+    	<div>
+            {% block block_body %}{% endblock %}
+        </div>
+
+        <hr />
+
+        <div>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li> <a href = "/myApp/restricted/"> Restricted </a>
+                    <li> <a href = "/myApp/logout/"> Log out </a>
+                    <li> <a href = "/myApp/add_category/"> Add a new category </a>	
+                {% else %}
+                    <li> <a href = "/myApp/register/"> Register </a>
+                    <li> <a href = "/myApp/login/"> Log in </a>	
+                {% endif %}
+                    <li> <a href = "/myApp/about/"> About </a>
+                    <li> <a href = "/myApp"> Home </a><br>	
+            </ul>
+        </div> 	
+
+
+    </body>
+</html>	

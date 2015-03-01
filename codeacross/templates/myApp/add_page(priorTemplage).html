@@ -1,9 +1,14 @@
-{% extends 'myApp/base.html' %}
+<!DOCTYPE html>
 
-{% block title %} Add a page {% endblock %}
+{#{% load static %}#}
 
-{% block block_body %}
+<html>
+    <head>
 
+        <title> myApp </title>
+    </head>
+
+    <body>
         <h1> Add a new page</h1>
 
         <form id="page_form" method="post" action="/myApp/category/{{ category_name_url }}/add_page/">
@@ -19,8 +24,14 @@
                 {{ field }}
             {% endfor %}
 
+
+
             <input type="submit" name="submit" value="Create Page" /> 
 
         </form>
 
-{% endblock %}
+        <a href = "\myApp\about\"> About </a> <br >
+        {#<img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />#}
+    </body>	
+
+</html>

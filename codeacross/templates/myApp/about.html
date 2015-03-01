@@ -1,23 +1,13 @@
-<!DOCTYPE html>
+{% extends 'myApp/base.html' %}
 
-{% load static %}
+{% block title %} About myApp {% endblock %}
 
-<html>
+{% block block_body %}
+        <strong> myApp says: This is About {{ boldmessage }} </strong> <br>
 
-    <title> About</title>
-
-
-
-
-    <body>
-        <h1> About myApp </h1>
-
-        <stonrg> myApp says: This is About {{ boldmessage }} </strong> <br>
-
-        <a href = "/myApp">Home</a><br>	
+        {#<img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />#}        
 
         <img src = "/media/nyplCivicHack.jpg" altname = "NYPL civic hackday">
 
-    </body>
-
-</html>    
+        <br>
+{% endblock %}    
