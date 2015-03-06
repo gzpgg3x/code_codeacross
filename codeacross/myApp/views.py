@@ -53,6 +53,9 @@ def index(request):
     # context_dict = {'categories': category_list}
     context_dict = {'categories': category_list, 'pages': page_list}
 
+    cat_list = get_category_list()
+    context_dict['cat_list'] = cat_list
+
     # for category in categories:
     #     category_name_url = category_name.replace(" ", "_")
     # We loop through each category returned, and create a URL attribute.
@@ -409,3 +412,16 @@ def search(request):
             result_list = run_query(query)
 
     return render_to_response('myApp/search.html', {'result_list': result_list}, context)
+
+# def get_category_list(request):
+def get_category_list():
+    # context = RequestContext(request)
+    # cat_list = Category.ojbects.All
+    cat_list = Category.objects.all()
+    # context_dict = {'cat_list': cat_list}
+    for cat in cat_list:
+        # cat.url = encode(cat.name)
+        cat.url = encode_url(cat.name)
+    # return render_to_response('myApp/cat_', context_dic, context)
+    # return cat.url 
+    return cat_list    

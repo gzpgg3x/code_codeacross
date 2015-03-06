@@ -59,6 +59,17 @@
                 <div class="span3">
                     <div class="well sidebar-nav">
                         <!--- Empty for the timebeing  -->
+                        {% block sidebard %}
+                        {% endblock %}
+
+                        <div class="cats">
+                            {% if cat_list %}
+                                <ul class="nav nav-list"> <li> Category List </li> </ul>
+                                {% include 'myApp/category_list.html' with cat_list=cat_list %}
+                                
+                            {% endif %} 
+                        </div>    
+
                     </div>
                     <!--/.well -->
                 </div>
