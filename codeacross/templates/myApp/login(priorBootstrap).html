@@ -1,0 +1,25 @@
+{% extends 'myApp/base.html' %}
+
+{% block title %} Log in {% endblock %}
+
+{% block block_body %}
+
+        <h1> myApp User Login</h1>
+
+
+            myApp says: <strong> Please Log in Here. </strong>
+
+            {#<form id="user_login" method="post" action="/myApp/login/" enctype="multipart/form-data">#}
+            <form id="login_form" method="post" action="/myApp/login/">
+
+                {% csrf_token %}
+                Username: <input type="text" name="username" value="" size="50" />
+                <br />
+                Password: <input type="password" name="password" value="50" />
+                <br />
+
+                {#<input type="submit" name="submit" value="Login" /> #}
+                <input type="submit" value="submit" />
+            </form>
+
+{% endblock %}

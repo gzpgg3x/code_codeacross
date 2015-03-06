@@ -2,45 +2,44 @@
 
 {% block title %} Home {% endblock %}
 
-{% block block_body %}
+{% block body_block %}
 
-        <h1> myApp </h1>  
 
-        {% if user.is_authenticated %}
-            {#<h1> Hello, {{ user.name }} ! </h1>#}    
-            <h1> Hello, {{user.username}} ! </h1>
-        {% else %}
-            <h1> Hello, world ! </h1> 
-        {% endif %}
+<div class="hero-unit">
+    <h1> Ready to myApp </h1>    
+    <p> Find, Add, Share and Enjoy useful links and resources. </p>
+</div>
 
-        <h2> myApp says: "Top 5 Categories" </h2>
-        {#<storng> {{ boldmessage }} </strong> <br >#}
-
+<div class="row-fluid">
+    <div class="span6">       
+        <h2> Top Five Categories </h2> <br />
+        {#{% if category %}#}        
         {% if categories %}
-            <ul>
+            <ul> 
                 {% for category in categories %}
-
-                <li><a href = "/myApp/category/{{category.url}}">{{category.name}}</a></li>
+                    {#<li> <a href="/myApp/category/{{category}}"> {{category.name}} </a> </li>#}                
+                    <li> <a href="/myApp/category/{{category.url}}"> {{category.name}} </a> </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <storng> There is no category! </strong>
+        <p> There are no categories so far. </p>
         {% endif %}
 
-        <h2> myApp says: "Top 5 pages" </h2>
 
-        {% if pages %}
-
-            <ul>
-                {% for page in pages %}
-                    <li><a href = {{ page.url }}> {{page.title}} </a></li>
-                {% endfor %}    
-            </ul>
-
-        {% else %}
-            <strong> There are no pages. </strong>
-        {% endif %}
-
-        <br>
-
+    </div>    
+    <div class="span6">
+        <h2> Top Five Pages </h2> <br />
+            {% if pages %}
+                <ul>
+                    {% for page in pages %}
+                        {#<li> <a href="{{page.url}}"> {{page.title}} </a> <a>- {{page.category}} ({{page.views}} view(s))</a> </li>#}       
+                        <li> <a href="{{page.url}}"> {{page.title}} </a> - {{page.category}} ({{page.views}} view(s)) </li> 
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no pages in this category. </p>
+            {% endif %}  
+    </div> 
+</div>
+<!--/row-->
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'myApp/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block block_body %}
+
+        <h1> myApp </h1>  
+
+        {% if user.is_authenticated %}
+            {#<h1> Hello, {{ user.name }} ! </h1>#}    
+            <h1> Hello, {{user.username}} ! </h1>
+        {% else %}
+            <h1> Hello, world ! </h1> 
+        {% endif %}
+
+        <h2> myApp says: "Top 5 Categories" </h2>
+        {#<storng> {{ boldmessage }} </strong> <br >#}
+
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+
+                <li><a href = "/myApp/category/{{category.url}}">{{category.name}}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <storng> There is no category! </strong>
+        {% endif %}
+
+        <h2> myApp says: "Top 5 pages" </h2>
+
+        {% if pages %}
+
+            <ul>
+                {% for page in pages %}
+                    <li><a href = {{ page.url }}> {{page.title}} </a></li>
+                {% endfor %}    
+            </ul>
+
+        {% else %}
+            <strong> There are no pages. </strong>
+        {% endif %}
+
+        <br>
+
+{% endblock %}

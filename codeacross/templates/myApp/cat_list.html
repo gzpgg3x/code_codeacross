@@ -1,0 +1,29 @@
+{#<!DOCTYPE html>#}
+
+{#<html>#}
+
+    {#<title> Category List </title>#}
+
+    {#<body>#}
+
+<ul class="nav nav-list">
+
+        {% if cat_list %}
+
+            
+                {% for cat in cat_list %}
+
+                    <li> <a href = "/myApp/category/{{cat.url}}/"> {{ cat.name }} </a> </li>
+
+                {% endfor %}
+               
+
+        {% else %}
+            <p> There are no categories. </p>
+        {% endif %}
+</ul>
+
+
+    {#</body>#}
+
+{#</html>#}

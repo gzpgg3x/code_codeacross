@@ -2,32 +2,48 @@
 
 {% block title %} Register {% endblock %}
 
-{% block block_body %}
+{% block body_block %}
+<div class="hero-unit">
+    <div class="container">
+        {% if registerd %}
+            <p>Thank you for registering. </p>
 
-        <h1> Register with myApp</h1>
+            <!-- <p><a href="/myApp/login/"> When you are ready to use myApp </a></p>  -->
+            <p><a href="/myApp/login/"> Login </a> When you are ready to use myApp. </p>
 
-        {% if registered %}
-            myApp says : <strong> Thank you for registering with myApp! </strong>
-            {#<a href = "myApp/index.html"> Home </a>#}
-            <a href = "/myApp/"> Return to Home Page. </a>
         {% else %}
-            myApp says: <strong> Please Register Here. </strong>
-
-            <form id="user_form" method="post" action="/myApp/register/" enctype="multipart/form-data">
-
+            <form class="form-signin span8" id="user_form" method="post" action="/myApp/register/" enctype="multipart/form-data">
                 {% csrf_token %}
-                <!-- Display each form. The as_p method rwaps each element ina paragraph 
-                     (<p>) element. This encourages each element appears on a new line,
-                     making everything look neater. -->
+                <h2 class="form-signin-heading"> Sign up Here </h2>
+                <!--Display each form here -->
 
-                {{ user_form.as_p }}
-                {{ profile_form.as_p }}
+                {% for field in user_form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }} <br />
+                    {{ field }} <br />
+                {% endfor %}
 
-                <!-- Provide a button to click to submit the form. -->
-                <input type="submit" name="submit" value="Register" /> 
+                {#{% for field in userprofile_form.visible_fields %}#}
+                {% for field in profile_form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }} <br />
+                    {{ field }} <br />
+                {% endfor %}
 
+<!--             {% for field in profile_form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}<br />
+            {{ field }}<br />
+            {% endfor %}  -->               
+
+                <br />
+                <!--Provide a button to click to submit the form. -->
+                {#<input class="btn btn-primary" type="submit" name="submit" value="register"/>#}
+                <input class="btn btn-primary" type="submit" name="submit" value="register"/>
             </form>
         {% endif %}
 
 
+    </div>
+</div>
 {% endblock %}

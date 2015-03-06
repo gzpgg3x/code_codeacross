@@ -1,0 +1,13 @@
+{% extends 'myApp/base.html' %}
+
+{% block title %} About myApp {% endblock %}
+
+{% block block_body %}
+        <strong> myApp says: This is About {{ boldmessage }} </strong> <br>
+
+        {#<img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />#}        
+
+        <img src = "/media/nyplCivicHack.jpg" altname = "NYPL civic hackday">
+
+        <br>
+{% endblock %}    

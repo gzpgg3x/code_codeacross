@@ -2,12 +2,17 @@
 
 {% block title %} About myApp {% endblock %}
 
-{% block block_body %}
-        <strong> myApp says: This is About {{ boldmessage }} </strong> <br>
+{% block body_block %}
+    <div class="hero-unit">
+    	<h1> About myApp </h1>
+        This is <strong> myApp's about page </strong>. <br />
+        
+        You've sivisted the site on <strong> {{ visit_count }} occasions(s)</strong>. <br />
 
-        {#<img src = "{% static "nyplCivicHack.jpg" %}", altname = "NYPL Civic Hack" />#}        
+        Here's a picture of myApaa! <br />
 
-        <img src = "/media/nyplCivicHack.jpg" altname = "NYPL civic hackday">
-
-        <br>
-{% endblock %}    
+        <img src = "/media/nyplCivicHack.jpg" altname = "NYPL civic hackday"> <br />
+        {#<img src="{% static 'nyplCivicHack.jpg' %}" alt="Picture of Rango" />#}
+    </div>
+{% endblock %} 
+ 
