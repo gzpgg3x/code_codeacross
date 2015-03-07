@@ -160,14 +160,16 @@ def category(request, category_name_url):
     # URLs don't handle spaces well, so we encode them as underscores.
     # We can then simply replace the underscores with spaces again to get the name.
     # category_name = category_name_url.replace('_', ' ')
-    category_name = decode_url(category_name_url) 
+    category_name = decode_url(category_name_url)
 
+    cat_list = get_category_list() 
+    
 
     # Create a context dictionary which we can pass to the template rendering engine.
     # We start by containing the name of the category passed by the user.
     # context_dict = {'pages': page_list}
     # context_dict = {'category_name': category_name}
-    context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
+    context_dict = {'category_name': category_name, 'category_name_url': category_name_url, 'cat_list': cat_list}
 
     try:
         # Can we find a category with the given name?
@@ -220,10 +222,14 @@ def add_category(request):
         # If the request was not a POST, display the form to enter details.
         form = CategoryForm()
 
+    cat_list = get_category_list()
+
+    context_dict = {'form': form, 'cat_list': cat_list}
+
     # Bad form (or form details), no form supplied    
     # Render the form with error messages (if any).
-    # context_dict = 
-    return render_to_response('myApp/add_category.html', {'form': form}, context)
+    # return render_to_response('myApp/add_category.html', {'form': form}, context)
+    return render_to_response('myApp/add_category.html', context_dict, context)
 
 @login_required
 # def add_page(request):
