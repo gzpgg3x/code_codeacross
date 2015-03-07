@@ -278,6 +278,8 @@ def about(request):
     context = RequestContext(request)
 
     context_dict = { "boldmessage": "How I make a master of python django" }
+    cat_list = get_category_list()
+    context_dict['cat_list'] = cat_list
     return render_to_response('myApp/about.html', context_dict, context)
 
 def register(request):
@@ -411,7 +413,15 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
 
-    return render_to_response('myApp/search.html', {'result_list': result_list}, context)
+    # result_list['result_list'] = result_list
+    # context_dict = {'result_list': result_list}       
+
+    cat_list = get_category_list()
+    # result_list['cat_list'] = cat_list
+    context_dict = {'result_list': result_list, 'cat_list': cat_list}
+    # return render_to_response('myApp/search.html', {'result_list': result_list}, context)
+    return render_to_response('myApp/search.html', context_dict, context)
+    # return render_to_response('myApp/search.html', result_list, context)
 
 # def get_category_list(request):
 def get_category_list():
