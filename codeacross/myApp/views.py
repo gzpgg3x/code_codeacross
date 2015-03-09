@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from bing_search import run_query
+from django.shortcuts import redirect
 
 # def encoding(category_name_url):
 #     category_name = category_name_url.replace('_', ' ')
@@ -532,3 +533,27 @@ def profile(request):
     context_dict['userprofile'] = up
 
     return render_to_response('myApp/profile.html', context_dict, context)
+
+# def get_url_views(request):
+def track_url(request):
+    context = RequestContext(request)
+    # context_dict = 
+    page_id = None
+    url = '/myApp/'
+    # if request.page_id is 'GET'
+    if request.method == 'GET':
+        # if page_id in request.get
+        if 'page_id' in request.GET:
+            page_id = request.GET['page_id']
+            try:
+                # page = Page.objects.all()
+                # page = page.objects.all(id = page.id)
+                page = Page.objects.get(id=page_id)
+                page.views = page.views + 1
+                page.save()
+                url = page.url
+            except:
+                pass
+    # return render_to_response('.html', context_dict, context)
+    # return url
+    return redirect(url)

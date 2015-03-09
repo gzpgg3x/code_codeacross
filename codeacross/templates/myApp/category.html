@@ -9,14 +9,24 @@
             {% if pages %}
                 <ul>
                     {% for page in pages %}
-                    <li><a href = {{page.url}} >{{ page.title }}</a></li>
+                        {#<li><a href = {{page.url}} >{{ page.title }}</a></li>#}
+                        <li>
+                            <a href = "/myApp/goto/?page_id={{page.id}}">{{page.title}}</a>
+                            {#{% if {{ page.views }} > 1 %}#}
+                            {% if page.views > 1 %}
+                                - ({{ page.views }} views)
+                            {#{% elif {{ page.views }} == 1 %}#}
+                            {% elif page.views == 1 %}
+                                - ({{ page.views }} view)
+                            {% endif %}
+                        </li> 
                     {% endfor %}
                 </ul>
             {% else %}
                 <storng> There is no page in this category! </strong>
             {% endif %} 
         {% else %}
-            <strong> The specified {{ category_name }} does not exist! </strong>
+            <strong> The specified category {{ category_name }} does not exist! </strong>
         {% endif %}
 
         <br>
@@ -27,7 +37,7 @@
             <a href="/myApp/category/{{ category_name_url }}/add_page/">Add a Page</a>            
 
         {% else %}
-            <a> The specified category {{ category_name_url }} does not exist. </a>
+            {#<a> The specified category {{ category_name_url }} does not exist. </a>#}
         {% endif %}
         <br>
 

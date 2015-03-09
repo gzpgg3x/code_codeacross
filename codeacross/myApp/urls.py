@@ -18,6 +18,7 @@ urlpatterns = patterns('',
         url(r'^logout/$', views.user_logout, name='user_logout'),
         # url(r'^search/$', views.search, name='search'),
         url(r'^profile/$', views.profile, name='profile'),
+        url(r'^goto/$', views.track_url, name='url_track'),
         )  # New!
 
         # url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),)    
