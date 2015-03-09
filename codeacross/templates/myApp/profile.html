@@ -1,0 +1,28 @@
+{% extends 'myApp/base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block body_block %}
+
+    <div class="hero-unit">
+        <h1> User Profile </h1>
+    	{#{% if user %}#}
+            <p> User ID: {{ user.username }} </p>
+            <p> User Email: {{ user.email }} </p>            
+            {#<p> User Website: {{ user.website }} </p>#}
+            {#<p> User Picture: {{ user.picture }} </p>#}
+        {#{% endif %}#}
+        <br />
+
+        {% if UserProfile %}
+            {#<p> <a href="user/{{ user.website }}"> {{ user.website }} </a> </p>#}
+            <p> Website: <a href="{{ user.website }}"> {{ user.website }} </a> </p>
+            {% if UserProfile.picture %}
+                {#<p> <a href="user/{{ user.picture }}"> {{ user.picture }} </a> </p>#}
+                <img src="{{ user.picture.url }}" />
+            {% endif %}    
+        {% endif %}
+
+    </div>
+
+{% endblock %}

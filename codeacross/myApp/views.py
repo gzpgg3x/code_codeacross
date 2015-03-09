@@ -6,7 +6,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from myApp.models import Category, Page
+from myApp.models import Category, Page, User, UserProfile
 from myApp.forms import CategoryForm, PageForm
 from myApp.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
@@ -162,14 +162,22 @@ def category(request, category_name_url):
     # category_name = category_name_url.replace('_', ' ')
     category_name = decode_url(category_name_url)
 
-    cat_list = get_category_list() 
+    cat_list = get_category_list()
+
+    result_list = []
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+
+        if query:
+            # Run our Bing function to get the results list!
+            result_list = run_query(query) 
     
 
     # Create a context dictionary which we can pass to the template rendering engine.
     # We start by containing the name of the category passed by the user.
     # context_dict = {'pages': page_list}
     # context_dict = {'category_name': category_name}
-    context_dict = {'category_name': category_name, 'category_name_url': category_name_url, 'cat_list': cat_list}
+    context_dict = {'category_name': category_name, 'category_name_url': category_name_url, 'cat_list': cat_list, 'result_list': result_list}
 
     try:
         # Can we find a category with the given name?
@@ -196,6 +204,46 @@ def category(request, category_name_url):
 
     # Go render the response and return it to the client.
     return render_to_response('myApp/category.html', context_dict, context)
+
+# def category(request, category_name_url):
+#     # Request our context
+#     context = RequestContext(request)
+
+#     # Change underscores in the category name to spaces.
+#     # URL's don't handle spaces well, so we encode them as underscores.
+#     category_name = decode_url(category_name_url)
+
+#     # Build up the dictionary we will use as out template context dictionary.
+#     context_dict = {'category_name': category_name, 'category_name_url': category_name_url}
+
+#     cat_list = get_category_list()
+#     context_dict['cat_list'] = cat_list
+
+#     try:
+#         # Find the category with the given name.
+#         # Raises an exception if the category doesn't exist.
+#         # We also do a case insensitive match.
+#         category = Category.objects.get(name__iexact=category_name)
+#         context_dict['category'] = category
+#         # Retrieve all the associated pages.
+#         # Note that filter returns >= 1 model instance.
+#         pages = Page.objects.filter(category=category).order_by('-views')
+
+#         # Adds our results list to the template context under name pages.
+#         context_dict['pages'] = pages
+#     except Category.DoesNotExist:
+#         # We get here if the category does not exist.
+#         # Will trigger the template to display the 'no category' message.
+#         pass
+
+#     if request.method == 'POST':
+#         query = request.POST['query'].strip()
+#         if query:
+#             result_list = run_query(query)
+#             context_dict['result_list'] = result_list
+
+#     # Go render the response and return it to the client.
+#     return render_to_response('myApp/category.html', context_dict, context)
 
 @login_required
 def add_category(request):
@@ -440,4 +488,47 @@ def get_category_list():
         cat.url = encode_url(cat.name)
     # return render_to_response('myApp/cat_', context_dic, context)
     # return cat.url 
-    return cat_list    
+    return cat_list
+
+@login_required
+def profile(request):
+    context = RequestContext(request)
+
+    cat_list = get_category_list()
+    context_dict = {'cat_list': cat_list}
+
+    # u = User.objects.get(username=User.request)
+    u = User.objects.get(username=request.user)
+
+    try:
+        # Can we find a category with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        # category = Category.objects.get(category_name)
+        #user = User.objects.get(name = username)
+
+        # Retrieve all of the associated pages.
+        # Note that filter returns >=1 model instance.
+        # page = Category.ojbects.filter(category = category)
+        # userprofile = UserProfile.objects.filter(userprofile = userprofile)
+
+        # Add our results list to the template context under name pages.
+        # context_dict['page'] = pages 
+        # context_dict['user'] = user
+        # We also add the category object from the database to the context dictionary
+        # We'll use this in the template to verify that the category exists.
+        # context_dict['userprofile'] =  userprofile
+        # up = UserProfile.picture
+        up = UserProfile.objects.get(user = u)
+    except:
+        # We get here if we didn't find the spcified category.
+        # Don't do anything - the template displays the "no category " message for us.
+        up = None 
+    
+    # context_dict['website'] = UserProfile.webiste 
+    # context_dict['picture'] = UserProfile.picture
+
+    context_dict['user'] = u
+    context_dict['userprofile'] = up
+
+    return render_to_response('myApp/profile.html', context_dict, context)

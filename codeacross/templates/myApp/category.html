@@ -23,16 +23,52 @@
 
         {#<a href = "myApp/add_page/" >Add a new page. </a>#}
 
-        {#{% if category_name_url %}#}
         {% if category %}
-            {#<a href = "myApp/category/{{ category_name_url }}/add_page/" > Add a new page. </a>#}
-            {#<a href="/myApp/category/{{ category_name_url }}/add_page/">Add a Page</a>#}
             <a href="/myApp/category/{{ category_name_url }}/add_page/">Add a Page</a>            
 
         {% else %}
             <a> The specified category {{ category_name_url }} does not exist. </a>
         {% endif %}
         <br>
+
+
+        <div class="container-fluid">
+            <h1> Search with myApp </h1>
+            <br />            
+            {#<form class="form-signin span8" id="user_form" method="post" action="/myApp/search/">#}
+            <form class="span8 form-search" id="user_form" method="post" action="/myApp/category/{{ category_name_url }}/">
+                {% csrf_token %}
+                <!--Display the search form elements here-->
+                {#<input type="text" size="50" name="query" value="" id="query" />#}
+                <input type="text" class="input-long search-query" name="query" value="{{ category_name }}" id="query" />
+                {#<input class="btn btn-primary" type="submit" name="submit" value="Search" />#}
+                <button type="submit" class="btn btn-success" name="submit" value="search">Search</button>
+                <br />
+            </form>
+            <br />
+        </div>    
+        <div class="container-fluid"> 
+            <br />   
+            {#{% if result %}#}
+            {% if result_list %}
+            <!--Display search results in an ordered list-->
+            {#<div style="clear: both;">#}
+                <ol>
+                    {#{% for result in results %}#}
+                    {% for result in result_list %}
+                        <li>
+                            {#<strong><a href="url">  </a></strong>#}
+                            <strong><a href="{{ result.link }}"> {{ result.title }} </a></strong> <br />
+                            <em> {{ result.summary }} </em>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {#</div>#}
+            {% else %}
+                <p> No results found. </p>
+            {% endif %}
+
+        </div>        
 {% endblock %} 
 
 
