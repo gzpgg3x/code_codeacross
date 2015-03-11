@@ -549,18 +549,46 @@ def search(request):
     return render_to_response('myApp/search.html', context_dict, context)
     # return render_to_response('myApp/search.html', result_list, context)
 
-# def get_category_list(request):
-def get_category_list():
-    # context = RequestContext(request)
-    # cat_list = Category.ojbects.All
-    cat_list = Category.objects.all()
-    # context_dict = {'cat_list': cat_list}
+# # The follwoing def get_category_list() is before 15.2.2. Parameterise the Get Category List Function
+# def get_category_list():
+#     # context = RequestContext(request)
+#     # cat_list = Category.ojbects.All
+#     cat_list = Category.objects.all()
+#     # context_dict = {'cat_list': cat_list}
+#     for cat in cat_list:
+#         # cat.url = encode(cat.name)
+#         cat.url = encode_url(cat.name)
+#     # return render_to_response('myApp/cat_', context_dic, context)
+#     # return cat.url 
+#     return cat_list
+
+# The follwoing def get_category_list() is per 15.2.2. Parameterise the Get Category List Function
+def get_category_list(max_results=0, starts_with=''):
+    cat_list = []
+    if starts_with:
+        cat_list = Category.objects.filter(name__istartswith=starts_with)            
+    else:
+        cat_list = Category.objects.all()
+
+    if max_results>0:
+        if len(cat_list)>max_results:
+            cat_list =  cat_list[:max_results]
+
     for cat in cat_list:
-        # cat.url = encode(cat.name)
         cat.url = encode_url(cat.name)
-    # return render_to_response('myApp/cat_', context_dic, context)
-    # return cat.url 
     return cat_list
+
+def suggest_category(request):
+    context = RequestContext(request)
+    cat_list = []
+    starts_with =''
+    if request.method == 'GET':
+        starts_with = request.GET['suggestion']
+
+    cat_list = get_category_list(8, starts_with)
+
+    return render_to_response('myApp/category_list.html', {'cat_list': cat_list}, context)
+
 
 @login_required
 def profile(request):

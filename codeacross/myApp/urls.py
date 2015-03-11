@@ -21,6 +21,7 @@ urlpatterns = patterns('',
         url(r'^goto/$', views.track_url, name='url_track'),
         # url(r'^like_category/$', views.like_category, name='like_category'),
         url(r'^like_category/$', views.like_category, name='like_category'),
+        url(r'^suggest_category/$', views.suggest_category, name='suggest_category'),
         )
 
         # url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),)    

@@ -60,16 +60,31 @@
                 <div class="span3">
                     <div class="well sidebar-nav">
                         <!--- Empty for the timebeing  -->
-                        {% block sidebard %}
+
+                        
+                        {% block navbar %}
+                            <div>
+
+                            </div>
                         {% endblock %}
 
-                        <div class="cats">
-                            {% if cat_list %}
-                                <ul class="nav nav-list"> <li> Category List </li> </ul>
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Find a Category</li>
+                            <form>
+                            <label></label>
+                            {#<li><input class="input-medium search-query" type="text" name="suggestion" value="" id="suggestion" /></li>#}
+                            <li><input class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+                            </form>
+                        </ul>
+
+                        {% if cat_list %}
+                            {#<div class="cats">#}
+                            <div id="cats">                             
+                                {#<ul class="nav nav-list"> <li> Category List </li> </ul>#}
                                 {% include 'myApp/category_list.html' with cat_list=cat_list %}
-                                
-                            {% endif %} 
-                        </div>    
+                            </div>                                
+                        {% endif %} 
+   
 
                     </div>
                     <!--/.well -->
