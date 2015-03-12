@@ -69,6 +69,10 @@
                 <ol>
                     {% for result in result_list %}
                         <li>
+                            {#<button type="submit" class="btn btn-success" name="submit" value="search">Add</button>#}
+                            {% if user.is_authenticated %}
+                                <button data-catid="{{category.id}}" data-title="{{ result.title }}" data-url="{{ result.link }}" class="myApp-add btn btn-mini btn-info" type="button">Add</button>
+                            {% endif %}    
                             <strong><a href="{{ result.link }}"> {{ result.title }} </a></strong> <br />
                             <p> {{ result.summary }} </p>
                         </li>
