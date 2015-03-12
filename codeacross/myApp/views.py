@@ -171,6 +171,12 @@ def category(request, category_name_url):
     except Category.DoesNotExist:
         pass
 
+    if request.method == "POST":
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+            context_dict['result_list'] = result_list 
+
     return render_to_response('myApp/category.html', context_dict, context)   
 
 # # The following Category view is prior to 15.1.3. Update the Category View (no change is made per 15.1.3. Update the Category View)
